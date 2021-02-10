@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  fastapi:
+    build: .
+    ports:
+      - 8880:8880
+    volumes:
+      - "./src:/app"
+      - "/tmp:/app/tmp"
+    restart: always 

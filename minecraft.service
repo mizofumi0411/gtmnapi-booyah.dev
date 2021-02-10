@@ -1,0 +1,35 @@
+[Unit]
+Description=Minecraft Service
+After=network.target
+
+[Service]
+User=app
+Group=app
+
+Type=Simple
+
+WorkingDirectory=/home/app/minecraft
+Environment=LD_LIBRARY_PATH=.
+ExecStart=/usr/bin/screen -Dm -S minecli -L -Logfile /tmp/minecli.txt "./bedrock_server"
+ExecStop=/usr/bin/screen -S minecli -X stuff "say Server will be shutdown in 30s\015"
+ExecStop=/bin/sleep 10
+ExecStop=/usr/bin/screen -S minecli -X stuff "say Server will be shutdown in 20s\015"
+ExecStop=/bin/sleep 10
+ExecStop=/usr/bin/screen -S minecli -X stuff "say Server will be shutdown in 10s\015"
+ExecStop=/bin/sleep 5
+ExecStop=/usr/bin/screen -S minecli -X stuff "say Server will be shutdown in 5s\015"
+ExecStop=/bin/sleep 1
+ExecStop=/usr/bin/screen -S minecli -X stuff "say Server will be shutdown in 4s\015"
+ExecStop=/bin/sleep 1
+ExecStop=/usr/bin/screen -S minecli -X stuff "say Server will be shutdown in 3s\015"
+ExecStop=/bin/sleep 1
+ExecStop=/usr/bin/screen -S minecli -X stuff "say Server will be shutdown in 2s\015"
+ExecStop=/bin/sleep 1
+ExecStop=/usr/bin/screen -S minecli -X stuff "say Server will be shutdown in 1s\015"
+ExecStop=/usr/bin/screen -S minecli -X stuff "save-all\015"
+ExecStop=/usr/bin/screen -S minecli -X stuff "stop\015"
+TimeoutStopSec=20
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
